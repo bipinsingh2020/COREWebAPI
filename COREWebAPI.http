@@ -1,0 +1,6 @@
+@COREWebAPI_HostAddress = http://localhost:5023
+
+GET {{COREWebAPI_HostAddress}}/Get/
+Accept: application/json
+
+###
