@@ -8,14 +8,12 @@ on:
 jobs:
   create-pr:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/cli@v2
-
+      - uses: actions/checkout@v3
+      
       - name: Setup GitHub CLI
-        uses: cli/cli-action@v2
-
+        uses: actions/cli@v2
+        
       - name: Create PR to staging
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
