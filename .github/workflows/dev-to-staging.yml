@@ -33,4 +33,4 @@ jobs:
       - name: Deploy to Staging
         run: |
           echo "Deploying to staging environment"
-          ./deploy-staging.sh
+               ./deploy-staging.sh
