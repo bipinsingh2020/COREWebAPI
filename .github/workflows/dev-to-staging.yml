@@ -28,7 +28,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Make deploy script executable
+        run: chmod +x ./deploy-staging.sh
+
       - name: Deploy to Staging
-        run: |
-          echo "Deploying to staging environment"
-          ./deploy-staging.sh
+        run: ./deploy-staging.sh
+        shell: bash
