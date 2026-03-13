@@ -26,7 +26,7 @@ namespace COREWebAPI.Controllers
             {
                 var errorResponse = new ErrorResponse
                 {
-                    Message = "Validation failed",
+                    Message = "Validation failed1",
                     Errors = ModelState.Values.ToList()
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)

@@ -19,4 +19,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\staging-to-main.yml" />
+    <None Include=".github\workflows\dev-to-staging.yml" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,36 @@
+﻿name: Dev to Staging Pipeline
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: echo "Build step"
+
+      - name: Run Tests
+        run: echo "Run tests"
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make deploy script executable
+        run: chmod +x ./deploy-staging.sh
+
+      - name: Deploy to Staging
+        run: ./deploy-staging.sh
+        shell: bash
