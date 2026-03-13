@@ -1,4 +1,4 @@
-﻿name: Auto PR Dev → Staging
+﻿name: Dev to Staging Pipeline
 
 on:
   push:
@@ -6,24 +6,31 @@ on:
       - dev
 
 jobs:
-  create-pr:
+
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup GitHub CLI
-        uses: actions/cli@v2
-        
-      - name: Create PR to staging
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: echo "Build step"
+
+      - name: Run Tests
+        run: echo "Run tests"
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment: staging   # requires approval
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
         run: |
-          PR_EXISTS=$(gh pr list --base staging --head dev --json number --jq '.[].number')
-          if [ -z "$PR_EXISTS" ]; then
-            gh pr create \
-              --title "Dev → Staging" \
-              --body "Automatic PR from dev to staging" \
-              --base staging \
-              --head dev
-          else
-            echo "PR already exists: #$PR_EXISTS"
+          echo "Deploying to staging environment"
+          ./deploy-staging.sh
