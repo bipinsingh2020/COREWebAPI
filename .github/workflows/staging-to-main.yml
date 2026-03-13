@@ -1,1 +1,31 @@
-﻿
+﻿name: Auto PR Staging → Main
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup GitHub CLI
+        uses: cli/gh-action@v2
+
+      - name: Create PR to main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_EXISTS=$(gh pr list --base main --head staging --json number --jq '.[].number')
+          if [ -z "$PR_EXISTS" ]; then
+            gh pr create \
+              --title "Staging → Main" \
+              --body "Automatic PR from staging to main" \
+              --base main \
+              --head staging
+          else
+            echo "PR already exists: #$PR_EXISTS"
