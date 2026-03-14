@@ -1,0 +1,36 @@
+﻿name: Promote staging to main Pipeline
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: echo "Build step"
+
+      - name: Run Tests
+        run: echo "Run tests"
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make deploy script executable
+        run: chmod +x ./deploy-main.sh
+
+      - name: Deploy to main
+        run: ./deploy-main.sh
+        shell: bash
