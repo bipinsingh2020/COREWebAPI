@@ -1,27 +1,36 @@
-﻿name: Promote Staging to Main
+﻿name: Promote staging to main Pipeline
 
 on:
   push:
     branches:
       - staging
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
-  promote:
+
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Create PR
-        run: |
-          gh pr create \
-            --base main \
-            --head staging \
-            --title "Release: staging → main" \
-            --body "Automated promotion from staging"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: echo "Build step"
+
+      - name: Run Tests
+        run: echo "Run tests"
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make deploy script executable
+        run: chmod +x ./deploy-main.sh
+
+      - name: Deploy to main
+        run: ./deploy-main.sh
+        shell: bash
