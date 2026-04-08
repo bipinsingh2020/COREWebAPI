@@ -20,5 +20,12 @@ namespace COREWebAPI
             var r = _WeatherForecastService.Get();
             return r;
         }
+
+        [HttpGet("get1")]
+        public IEnumerable<WeatherForecast> Get1()
+        {
+            var r = _WeatherForecastService.Get();
+            return r;
+        }
     }
 }
