@@ -11,12 +11,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactClient",
         policy => policy
-            .WithOrigins("https://localhost:56722") // React dev server
+            .WithOrigins("https://localhost:56722") // React dev server1
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
 
-// Add services to the container332211.
+// Add services to the container555.
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
