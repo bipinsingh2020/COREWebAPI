@@ -11,7 +11,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactClient",
         policy => policy
-            .WithOrigins("https://localhost:56722") // React dev server
+            .WithOrigins("https://localhost:56722") // React dev server1
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
